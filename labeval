@@ -1,0 +1,108 @@
+def add_contact(contacts):
+
+    name = input("Enter contact name: ")
+    phone = input("Enter phone number: ").strip()
+    email = input("Enter email address (optional): ").strip()
+    
+    if name in contacts:
+        print(f"Contact '{name}' already exists.")
+    
+    else:
+        contacts[name] = {'phone': phone, 'email': email}
+        print(f"Contact '{name}' added successfully.")
+        
+
+def update_contact(contacts):
+
+    name = input("Enter contact name to update: ").strip()
+    
+    if name in contacts:
+        phone = input("Enter new phone number: ").strip()
+        email = input("Enter new email address: ").strip()
+        
+        if phone:
+            contacts[name]['phone'] = phone
+            
+        if email:
+            contacts[name]['email'] = email
+            
+        print(f"Contact '{name}' updated successfully.")
+    
+    else:
+        print(f"Contact '{name}' not found.")
+        
+
+def delete_contact(contacts):
+   
+    name = input("Enter contact name to delete: ").strip()
+    
+    if name in contacts:
+        
+        del contacts[name]
+        print(f"Contact '{name}' deleted successfully.")
+        
+    else:
+        print(f"Contact '{name}' not found.")
+        
+
+def search_contacts(contacts):
+  
+    search = input("Enter name or email to search: ")
+    
+    found = False
+    
+    for name, info in contacts.items():
+        if search in name or search in info['email']:
+            
+            email = info['email'] if info['email'] else "No email provided"
+            print(f"Name: {name}, Phone: {info['phone']}, Email: {email}")
+            found = True
+    
+    if not found:
+        print(f"No contacts found for '{search}'.")
+        
+def list_all_contacts(contacts):
+
+    if contacts:
+        print("All Contacts:")
+        for name, info in contacts.items():
+            email = info['email'] if info['email'] else "No email provided"
+            print(f"Name: {name}, Phone: {info['phone']}, Email: {email}")
+    else:
+        print("No contacts to display.")
+        
+def list_contacts_by_initial(contacts):
+
+    initial = input("Enter the initial letter to filter by: ")
+    
+    found = False
+    print(f"\nContacts starting with '{initial}':")
+    
+    for name, info in contacts.items():
+        
+        if name[0] == initial:
+            
+            email = info['email'] if info['email'] else "No email provided"
+            print(f"Name: {name}, Phone: {info['phone']}, Email: {email}")
+            found = True
+    
+    if not found:
+        print(f"No contacts found starting with '{initial}'.")
+        
+
+contacts = {}
+
+add_contact(contacts)
+search_contacts(contacts)
+update_contact(contacts)
+delete_contact(contacts)
+
+
+
+list_all_contacts(contacts)
+list_contacts_by_initial(contacts)
+
+
+
+
+
